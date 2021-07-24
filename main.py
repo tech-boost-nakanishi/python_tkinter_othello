@@ -17,7 +17,7 @@ WIDTH = 0
 HEIGHT = 0
 
 root = tk.Tk()
-root.title('○×ゲーム')
+root.title('オセロゲーム')
 root.resizable(False, False)
 
 # メニューバーを作成
