@@ -7,8 +7,8 @@ import sqlite3
 # データの初期設定　色は白, 順番は先攻
 conn = sqlite3.connect('setting.db')
 cur = conn.cursor()
-cur.execute('CREATE TABLE IF NOT EXISTS settings(id integer, mark integer, attack integer)')
-cur.execute('INSERT INTO settings(id,mark,attack) SELECT 1,0,0 WHERE NOT EXISTS(SELECT 1 FROM settings WHERE id = 1)')
+cur.execute('CREATE TABLE IF NOT EXISTS settings(id integer, color text, attack integer)')
+cur.execute('INSERT INTO settings(id,color,attack) SELECT 1,"w",0 WHERE NOT EXISTS(SELECT 1 FROM settings WHERE id = 1)')
 conn.commit()
 cur.close()
 conn.close()
