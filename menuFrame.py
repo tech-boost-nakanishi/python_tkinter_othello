@@ -14,9 +14,8 @@ class MenuFrame(tk.Frame):
 		self.menuindex.set(1)
 		self.menulength = 3
 
-		global canvas
-		canvas = tk.Canvas(self, width = self.WIDTH, height = self.HEIGHT, bg = self.bgcolor)
-		canvas.pack()
+		self.canvas = tk.Canvas(self, width = self.WIDTH, height = self.HEIGHT, bg = self.bgcolor)
+		self.canvas.pack()
 
 		self.paint()
 
@@ -33,7 +32,7 @@ class MenuFrame(tk.Frame):
 		self.controller = con
 
 	def repaint(self, event = None):
-		canvas.delete('all')
+		self.canvas.delete('all')
 		self.paint()
 
 	def keyPressed(self, event):
@@ -85,29 +84,29 @@ class MenuFrame(tk.Frame):
 			self.getController().quit()
 
 	def paint(self):
-		canvas.create_text(320, 50, fill = 'white', text = 'Menu', font = ('Times New Roman', 36, 'italic'))
+		self.canvas.create_text(320, 50, fill = 'white', text = 'Menu', font = ('Times New Roman', 36, 'italic'))
 
-		canvas.create_rectangle(220, 115, 415, 155, fill = self.bgcolor, width = 0, tags = 'startrect')
-		canvas.create_text(320, 130, fill = 'white', text = 'game start', font = ('Times New Roman', 40, 'italic'), tags = 'start')
+		self.canvas.create_rectangle(220, 115, 415, 155, fill = self.bgcolor, width = 0, tags = 'startrect')
+		self.canvas.create_text(320, 130, fill = 'white', text = 'game start', font = ('Times New Roman', 40, 'italic'), tags = 'start')
 
-		canvas.create_rectangle(250, 185, 385, 225, fill = self.bgcolor, width = 0, tags = 'settingrect')
-		canvas.create_text(320, 200, fill = 'white', text = 'settings', font = ('Times New Roman', 40, 'italic'), tags = 'setting')
+		self.canvas.create_rectangle(250, 185, 385, 225, fill = self.bgcolor, width = 0, tags = 'settingrect')
+		self.canvas.create_text(320, 200, fill = 'white', text = 'settings', font = ('Times New Roman', 40, 'italic'), tags = 'setting')
 
-		canvas.create_rectangle(270, 255, 365, 295, fill = self.bgcolor, width = 0, tags = 'quitrect')
-		canvas.create_text(320, 270, fill = 'white', text = 'quit', font = ('Times New Roman', 40, 'italic'), tags = 'quit')
+		self.canvas.create_rectangle(270, 255, 365, 295, fill = self.bgcolor, width = 0, tags = 'quitrect')
+		self.canvas.create_text(320, 270, fill = 'white', text = 'quit', font = ('Times New Roman', 40, 'italic'), tags = 'quit')
 
 		# スタートメニュー選択時
-		canvas.create_text(210, 135, fill = 'red' if self.menuindex.get() == 1 else self.bgcolor, text = '>', font = ('arial', 40, 'bold'), tags = 'startselected')
-		canvas.create_text(425, 135, fill = 'red' if self.menuindex.get() == 1 else self.bgcolor, text = '<', font = ('arial', 40, 'bold'), tags = 'startselected')
+		self.canvas.create_text(210, 135, fill = 'red' if self.menuindex.get() == 1 else self.bgcolor, text = '>', font = ('arial', 40, 'bold'), tags = 'startselected')
+		self.canvas.create_text(425, 135, fill = 'red' if self.menuindex.get() == 1 else self.bgcolor, text = '<', font = ('arial', 40, 'bold'), tags = 'startselected')
 
 		# 設定メニュー選択時
-		canvas.create_text(240, 205, fill = 'red' if self.menuindex.get() == 2 else self.bgcolor, text = '>', font = ('arial', 40, 'bold'), tags = 'settingselected')
-		canvas.create_text(395, 205, fill = 'red' if self.menuindex.get() == 2 else self.bgcolor, text = '<', font = ('arial', 40, 'bold'), tags = 'settingselected')
+		self.canvas.create_text(240, 205, fill = 'red' if self.menuindex.get() == 2 else self.bgcolor, text = '>', font = ('arial', 40, 'bold'), tags = 'settingselected')
+		self.canvas.create_text(395, 205, fill = 'red' if self.menuindex.get() == 2 else self.bgcolor, text = '<', font = ('arial', 40, 'bold'), tags = 'settingselected')
 
 		# 終了メニュー選択時
-		canvas.create_text(260, 275, fill = 'red' if self.menuindex.get() == 3 else self.bgcolor, text = '>', font = ('arial', 40, 'bold'), tags = 'quitselected')
-		canvas.create_text(375, 275, fill = 'red' if self.menuindex.get() == 3 else self.bgcolor, text = '<', font = ('arial', 40, 'bold'), tags = 'quitselected')
+		self.canvas.create_text(260, 275, fill = 'red' if self.menuindex.get() == 3 else self.bgcolor, text = '>', font = ('arial', 40, 'bold'), tags = 'quitselected')
+		self.canvas.create_text(375, 275, fill = 'red' if self.menuindex.get() == 3 else self.bgcolor, text = '<', font = ('arial', 40, 'bold'), tags = 'quitselected')
 
 		# マウスイベントを設定
-		canvas.tag_bind('current', '<Enter>', self.mouseEnter)
-		canvas.tag_bind('current', '<ButtonPress-1>', self.mousePressed)
+		self.canvas.tag_bind('current', '<Enter>', self.mouseEnter)
+		self.canvas.tag_bind('current', '<ButtonPress-1>', self.mousePressed)
