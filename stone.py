@@ -1,15 +1,13 @@
 from decimal import Decimal, ROUND_HALF_UP
 
 class Stone():
-	def __init__(self, canvas, blength, gfwidth, defaultvalue):
-		self.canvas = canvas
+	def __init__(self, blength, gfwidth):
 		self.blength = blength
 		self.gfwidth = gfwidth
-		self.defaultvalue = defaultvalue
 		self.masuwidth = self.masuheight = int(Decimal(str(self.gfwidth / self.blength)).quantize(Decimal('0'), rounding=ROUND_HALF_UP))
 
 		# ストーンリストの初期化
-		self.stones = [[self.defaultvalue]*self.blength for i in range(self.blength)]
+		self.stones = [[0]*self.blength for i in range(self.blength)]
 
 	def getStone(self, x, y):
 		return self.stones[x][y]
@@ -27,17 +25,17 @@ class Stone():
 
 		return count
 
-	def drawBlackStone(self, x, y):
+	def drawBlackStone(self, canvas, x, y):
 		diff = 6
 		xPos = x * self.masuwidth
 		yPos = y * self.masuheight
 
-		self.canvas.create_oval(xPos + diff, yPos + diff, xPos + self.masuwidth - diff, yPos + self.masuheight - diff, fill = 'black', outline = 'black')
+		canvas.create_oval(xPos + diff, yPos + diff, xPos + self.masuwidth - diff, yPos + self.masuheight - diff, fill = 'black', outline = 'black')
 
-	def drawWhiteStone(self, x, y):
+	def drawWhiteStone(self, canvas, x, y):
 		diff = 6
 		xPos = x * self.masuwidth
 		yPos = y * self.masuheight
 
-		self.canvas.create_oval(xPos + diff, yPos + diff, xPos + self.masuwidth - diff, yPos + self.masuheight - diff, fill = 'white', outline = 'white')
+		canvas.create_oval(xPos + diff, yPos + diff, xPos + self.masuwidth - diff, yPos + self.masuheight - diff, fill = 'white', outline = 'white')
 		
