@@ -17,6 +17,12 @@ class GameFrame(tk.Frame):
 		self.canvas = tk.Canvas(self, width = self.WIDTH, height = self.HEIGHT, bg = self.bgcolor)
 		self.canvas.pack()
 
+		# ボタン群
+		tk.Button(self, text = '最初から', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('ゲームフレーム')).place(x = 10, y = 650)
+		tk.Button(self, text = '終了', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = controller.destroy).place(x = 10, y = 680)
+		tk.Button(self, text = 'メニュー画面へ', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('メニューフレーム')).place(x = 120, y = 650)
+		tk.Button(self, text = '設定画面へ', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('設定フレーム')).place(x = 120, y = 680)
+
 		# ボードクラスのインスタンス生成
 		import board
 		self.boardobj = board.Board(self.canvas, self.masucount, self.WIDTH)
@@ -25,10 +31,11 @@ class GameFrame(tk.Frame):
 		import stone
 		self.stoneobj = stone.Stone(self.canvas, self.masucount, self.WIDTH, self.BLANK)
 
-		tk.Button(self, text = '最初から', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('ゲームフレーム')).place(x = 10, y = 650)
-		tk.Button(self, text = '終了', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = controller.destroy).place(x = 10, y = 680)
-		tk.Button(self, text = 'メニュー画面へ', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('メニューフレーム')).place(x = 120, y = 650)
-		tk.Button(self, text = '設定画面へ', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('設定フレーム')).place(x = 120, y = 680)
+		# 設定クラスのインスタンス生成
+		import settingFrame
+		settingframe = settingFrame.SettingFrame(main.container, main.root)
+		self.attackvalue = settingframe.getATTACKVALUE()
+		self.borwvalue = settingframe.getBORWVALUE()
 
 		self.paint()
 
