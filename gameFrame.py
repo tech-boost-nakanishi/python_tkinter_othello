@@ -25,11 +25,15 @@ class GameFrame(tk.Frame):
 
 		# ボードクラスのインスタンス生成
 		import board
-		self.boardobj = board.Board(self.canvas, self.masucount, self.WIDTH)
+		self.boardobj = board.Board(self.masucount, self.WIDTH)
 
 		# ストーンクラスのインスタンス生成
 		import stone
-		self.stoneobj = stone.Stone(self.canvas, self.masucount, self.WIDTH, self.BLANK)
+		self.stoneobj = stone.Stone(self.masucount, self.WIDTH)
+
+		# プレーヤークラスのインスタンス生成
+		import player
+		self.playerobj = player.Player(self.masucount, self.WIDTH)
 
 		# 設定クラスのインスタンス生成
 		import settingFrame
@@ -47,6 +51,6 @@ class GameFrame(tk.Frame):
 
 	def paint(self):
 		# ボードを描画
-		self.boardobj.drawBoard()
+		self.boardobj.drawBoard(self.canvas)
 
-		self.stoneobj.drawWhiteStone(self.boardobj.getX(100), self.boardobj.getY(100))
+		self.stoneobj.drawWhiteStone(self.canvas, self.boardobj.getX(100), self.boardobj.getY(100))
