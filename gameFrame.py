@@ -10,6 +10,9 @@ class GameFrame(tk.Frame):
 		self.pack_propagate(0)
 		self.bgcolor = 'lightgray'
 		self.masucount = 8
+		self.BLANK = 0
+		self.USER = 1
+		self.COMPUTER = 2
 
 		self.canvas = tk.Canvas(self, width = self.WIDTH, height = self.HEIGHT, bg = self.bgcolor)
 		self.canvas.pack()
@@ -17,6 +20,10 @@ class GameFrame(tk.Frame):
 		# ボードクラスのインスタンス生成
 		import board
 		self.boardobj = board.Board(self.canvas, self.masucount, self.WIDTH)
+
+		# ストーンクラスのインスタンス生成
+		import stone
+		self.stoneobj = stone.Stone(self.canvas, self.masucount, self.WIDTH, self.BLANK)
 
 		tk.Button(self, text = '最初から', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = lambda: main.show_frame('ゲームフレーム')).place(x = 10, y = 650)
 		tk.Button(self, text = '終了', bg = self.bgcolor, highlightbackground = self.bgcolor, width = 10, command = controller.destroy).place(x = 10, y = 680)
@@ -34,3 +41,5 @@ class GameFrame(tk.Frame):
 	def paint(self):
 		# ボードを描画
 		self.boardobj.drawBoard()
+
+		self.stoneobj.drawWhiteStone(self.boardobj.getX(100), self.boardobj.getY(100))
