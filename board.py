@@ -1,10 +1,9 @@
-from decimal import Decimal, ROUND_HALF_UP
-
 class Board():
-	def __init__(self, blength, gfwidth):
+	def __init__(self, blength, gfwidth, masuwidth, masuheight):
 		self.blength = blength
 		self.gfwidth = gfwidth
-		self.masuwidth = self.masuheight = int(Decimal(str(self.gfwidth / self.blength)).quantize(Decimal('0'), rounding=ROUND_HALF_UP))
+		self.masuwidth = masuwidth
+		self.masuheight = masuheight
 
 	def getX(self, mx):
 		for i in range(self.blength):
