@@ -22,6 +22,7 @@ class GameFrame(tk.Frame):
 		self.turnnum = tk.IntVar()
 		self.failedcount = tk.IntVar()
 		self.failedcount.set(0)
+		self.running = True
 		self.isPut = False
 		self.playerCanPut = False
 		self.playerstones = []
@@ -79,7 +80,7 @@ class GameFrame(tk.Frame):
 		self.thread1.start()
 
 	def start(self):
-		while True:
+		while self.running:
 			# ユーザーのターン
 			if self.turnnum.get() == self.USER:
 				self.playerCanPut, self.playerstones = self.playerobj.CanPutStone(self.stones, self.BLANK, self.USER, self.COMPUTER)
@@ -105,6 +106,9 @@ class GameFrame(tk.Frame):
 
 				self.turnnum.set(self.USER)
 
+			if self.running == False:
+				break
+
 			# 再描画
 			self.repaint()
 
@@ -122,6 +126,10 @@ class GameFrame(tk.Frame):
 					messagebox.showinfo('メッセージ', '引き分けです。')
 
 				break
+
+	def stop(self):
+		self.isPut = True
+		self.running = False
 
 	def getWidth(self):
 		return self.WIDTH
@@ -155,6 +163,8 @@ class GameFrame(tk.Frame):
 					self.playercount, self.playerstones = self.playerobj.PutStone(self.stones, self.boardobj.getX(self.mx), self.boardobj.getY(self.my), self.BLANK, self.USER, self.COMPUTER, 'change')
 					self.stones = self.playerstones
 					self.isPut = True
+
+		self.repaint()
 
 	def repaint(self, event = None):
 		global mx, my
@@ -209,8 +219,6 @@ class GameFrame(tk.Frame):
 		return newlist.count(state)
 
 	def computerRandom(self):
-		time.sleep(0.5)
-
 		blanklist = []
 
 		for y in range(len(self.stones)):
@@ -224,3 +232,6 @@ class GameFrame(tk.Frame):
 		random.shuffle(blanklist)
 		self.playercount, self.playerstones = self.playerobj.PutStone(self.stones, blanklist[0][0], blanklist[0][1], self.BLANK, self.COMPUTER, self.USER, 'change')
 		self.stones = self.playerstones
+
+		time.sleep(0.5)
+		self.repaint()
